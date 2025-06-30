@@ -1,0 +1,47 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx --no -- commitlint --edit $1
+
+## Inject commit with scope inferred from branch name, 
+## e.g. 
+## branch_name       > feat(leaderboard)
+## commit_message    > fix: something
+## commit changes to > fix(leaderboard): something 
+
+## e.g. overriding case
+## branch_name       > feat(leaderboard)
+## commit_message    > fix(ful-303): something
+## commit remains    > fix(ful-303): something
+
+NoColor='\033[0m'
+Green='\033[0;32m'
+Yellow='\033[0;33m'
+
+branch_name=$(git symbolic-ref --short HEAD)
+commit_message_file="$1"
+commit_message=$(cat "$commit_message_file")
+
+commit_type=$(echo "$commit_message" | awk -F: '{print $1}')
+commit_description=$(echo "$commit_message" | cut -d ':' -f2)
+
+# Extract scope wrapped in () after a conventional commit prefix in the branch name
+regex="\(([^)]+)\)"
+if [[ $branch_name =~ $regex ]]; then
+  scope=${BASH_REMATCH[1]}
+else
+  echo "${Yellow}No scope found in branch name, skipping commit message scope injection.${NoColor}"
+  exit 0
+fi
+
+if [[ $commit_type =~ $regex ]]; then
+  echo "${Yellow}Existing scope found in commit, skipping commit message scope injection.${NoColor}"
+  exit 0
+else
+  commit_message_new="$commit_type($scope):$commit_description"
+  echo "${Green}[Scope Added]: ${NoColor} $commit_message  => $commit_message_new"
+  echo "$commit_message_new" > "$commit_message_file"
+fi
+
+
+

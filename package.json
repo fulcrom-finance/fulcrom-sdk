@@ -1,0 +1,36 @@
+{
+  "name": "fulcrom-sdk",
+  "version": "1.0.0",
+  "description": "Fulcrom SDK for interacting with the Fulcrom Finance protocol",
+  "scripts": {
+    "build": "dotenvx run -- turbo build --force",
+    "dev": "dotenvx run -- turbo dev",
+    "lint": "dotenvx run -- turbo lint",
+    "test": "dotenvx run -- turbo test",
+    "test:fulcrom-sdk": "dotenvx run -- turbo test --filter=@fulcrom-finance/fulcrom-sdk",
+    "release:fulcrom-sdk": "turbo @fulcrom-finance/fulcrom-sdk#release",
+    "release-local:fulcrom-sdk": "turbo @fulcrom-finance/fulcrom-sdk#release-local",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.8.1",
+    "@dotenvx/dotenvx": "^1.32.1",
+    "@types/node": "^22.13.10",
+    "commitlint": "19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "ts-node": "^10.9.2",
+    "turbo": "^2.3.3",
+    "typescript": "5.5.4",
+    "yalc": "1.0.0-pre.53"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

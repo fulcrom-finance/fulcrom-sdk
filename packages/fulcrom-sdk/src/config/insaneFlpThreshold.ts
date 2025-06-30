@@ -1,0 +1,1 @@
+export const INSANE_FLP_THRESHOLD = 300;

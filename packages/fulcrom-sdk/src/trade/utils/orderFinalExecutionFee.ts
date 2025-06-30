@@ -1,0 +1,29 @@
+import { BigNumber } from '@ethersproject/bignumber';
+import { getTpSlFinalExecutionFee } from './tpslFinalExecutionFee';
+import { ChainId } from '../../types';
+import { getOrderMinExecutionFee } from './minExecutionFee';
+import { cacheKeys, getDataWithCache } from '../../cache';
+
+export const getOrderFinalExecutionFee = async (
+  chainId: ChainId,
+  isStopLossPriceEnabled: boolean,
+  isTakeProfitPriceEnabled: boolean,
+  caches: Map<string,any>
+) => {
+  // order minExecutionFee
+  const orderMinExecutionFee = await getDataWithCache<BigNumber, [ChainId]>(
+    caches,
+    cacheKeys.OrderMinExecutionFee,
+    getOrderMinExecutionFee,
+    chainId
+  );
+
+  // tpsl final execution fee
+  const tpSlFinalExecutionFee = await getTpSlFinalExecutionFee(isStopLossPriceEnabled, isTakeProfitPriceEnabled,orderMinExecutionFee);
+
+  if (!orderMinExecutionFee || !tpSlFinalExecutionFee)
+    return BigNumber.from(0);
+  else {
+    return tpSlFinalExecutionFee.add(orderMinExecutionFee);
+  }
+};
