@@ -1,6 +1,6 @@
 {
   "name": "fulcrom-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fulcrom SDK for interacting with the Fulcrom Finance protocol",
   "scripts": {
     "build": "dotenvx run -- turbo build --force",
