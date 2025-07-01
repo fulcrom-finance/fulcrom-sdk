@@ -16,6 +16,15 @@
     "release": "pnpm publish --access public",
     "release-local": "yalc publish"
   },
+  "keywords": [
+    "fulcrom"
+  ],
+  "homepage": "https://github.com/fulcrom-finance/fulcrom-sdk#readme",
+  "bugs": "https://github.com/fulcrom-finance/fulcrom-sdk/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fulcrom-finance/fulcrom-sdk.git"
+  },
   "tsup": {
     "entry": [
       "src/index.ts"

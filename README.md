@@ -13,13 +13,13 @@ Welcome to the Fulcrom SDK! This package provides tools and utilities to streaml
 Install the package using npm:
 
 ```bash
-npm install fulcrom-sdk
+npm install @fulcrom-finance/fulcrom-sdk
 ```
 
 Or using pnpm:
 
 ```bash
-pnpm add fulcrom-sdk
+pnpm add @fulcrom-finance/fulcrom-sdk
 ```
 
 ## Usage
