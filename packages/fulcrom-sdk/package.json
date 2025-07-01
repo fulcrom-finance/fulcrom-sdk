@@ -13,7 +13,7 @@
     "test": "jest",
     "dev": "tsup --watch",
     "build": "rm -rf dist && tsup",
-    "release": "pnpm publish",
+    "release": "pnpm publish --access public",
     "release-local": "yalc publish"
   },
   "tsup": {
